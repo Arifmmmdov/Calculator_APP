@@ -21,23 +21,37 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.os.MessageCompat;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.zip.Inflater;
 
-public class ExampleDilaog extends AppCompatDialogFragment implements View.OnClickListener {
+public class ExampleDialog extends AppCompatDialogFragment implements View.OnClickListener {
     TextView TW_Heksa;
     LinearLayout linearLayout;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater=getActivity().getLayoutInflater();
-        View view=inflater.inflate(R.layout.change_color_layout,null);
-        TW_Heksa=view.findViewById(R.id.HeksaNumbers);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.change_color_layout, null);
+        TW_Heksa = view.findViewById(R.id.HeksaNumbers);
 
-        linearLayout=view.findViewById(R.id.LinearLayoutMain);
+        linearLayout = view.findViewById(R.id.LinearLayoutMain);
         //Buttons
         view.findViewById(R.id.Blue).setOnClickListener(this);
         view.findViewById(R.id.Red).setOnClickListener(this);
@@ -56,7 +70,7 @@ public class ExampleDilaog extends AppCompatDialogFragment implements View.OnCli
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        EventBus.getDefault().postSticky(new ColorChangeEvent(TW_Heksa.getText().toString()));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -71,24 +85,42 @@ public class ExampleDilaog extends AppCompatDialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        int i=v.getId();
-        switch(i){
-            case R.id.Blue: TW_Heksa.setText("Blue");break;
-            case R.id.Red: TW_Heksa.setText("Red");break;
-            case R.id.Yellow: TW_Heksa.setText("Yellow");break;
-            case R.id.Green: TW_Heksa.setText("Green");break;
-            case R.id.Orange: TW_Heksa.setText("Orange");break;
-            case R.id.Purple: TW_Heksa.setText("Purple");break;
-            case R.id.Grey: TW_Heksa.setText("Grey");break;
-            case R.id.Black: TW_Heksa.setText("Black");break;
-            case R.id.Brown: TW_Heksa.setText("Brown");break;
-            case R.id.White: TW_Heksa.setText("White");break;
-
+        int i = v.getId();
+        switch (i) {
+            case R.id.Blue:
+                TW_Heksa.setText("Blue");
+                break;
+            case R.id.Red:
+                TW_Heksa.setText("Red");
+                break;
+            case R.id.Yellow:
+                TW_Heksa.setText("Yellow");
+                break;
+            case R.id.Green:
+                TW_Heksa.setText("Green");
+                break;
+            case R.id.Orange:
+                TW_Heksa.setText("Orange");
+                break;
+            case R.id.Purple:
+                TW_Heksa.setText("Purple");
+                break;
+            case R.id.Grey:
+                TW_Heksa.setText("Grey");
+                break;
+            case R.id.Black:
+                TW_Heksa.setText("Black");
+                break;
+            case R.id.Brown:
+                TW_Heksa.setText("Brown");
+                break;
+            case R.id.White:
+                TW_Heksa.setText("White");
+                break;
 
 
         }
     }
-
 
 
 }

@@ -1,20 +1,18 @@
 package com.example.klaviatureapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button button1_1,button1_2,button1_3,button1_4,button0_1,button0_2,button0_3,button0_4,button2_1,button2_2,button2_3,button2_4,button3_1,button3_2,button3_3,button3_4,button4_1,button4_2,button4_3,button4_4;
     TextView textView,anotherText;
     ImageButton changeColor;
-    LinearLayout linearLayout;
+    ConstraintLayout linearLayout;
     public float FindResult(String MainString){
         Stack<Float> MyMainList= new Stack<Float>();
         Stack<Float> MyAnotherList= new Stack<Float>();
@@ -424,9 +422,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void SetDialog(){
-        ExampleDilaog exampleDilaog=new ExampleDilaog();
-        exampleDilaog.show(getSupportFragmentManager(),"Example Dialog");
 
+
+    public void setMainColors(Integer color){
+        button1_1.setBackgroundColor(color);
+        button1_2.setBackgroundColor(color);
+        button1_3.setBackgroundColor(color);
+        button1_4.setBackgroundColor(color);
+        button0_1.setBackgroundColor(color);
+        button0_2.setBackgroundColor(color);
+        button0_3.setBackgroundColor(color);
+        button0_4.setBackgroundColor(color);
+        button2_1.setBackgroundColor(color);
+        button2_2.setBackgroundColor(color);
+        button2_3.setBackgroundColor(color);
+        button2_4.setBackgroundColor(color);
+        button3_1.setBackgroundColor(color);
+        button3_2.setBackgroundColor(color);
+        button3_3.setBackgroundColor(color);
+        button3_4.setBackgroundColor(color);
+        button4_1.setBackgroundColor(color);
+        button4_2.setBackgroundColor(color);
+        button4_3.setBackgroundColor(color);
+        button4_4.setBackgroundColor(color);
+    }
+
+    public void SetDialog(){
+        ExampleDialog exampleDialog =new ExampleDialog();
+        exampleDialog.show(getSupportFragmentManager(),"Example Dialog");
+
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onColorChangeEvent(ColorChangeEvent colorChangeEvent){
+        switch (colorChangeEvent.getColor()){
+            case "White":
+
+                break;
+
+
+        }
     }
 }
